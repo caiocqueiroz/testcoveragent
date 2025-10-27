@@ -11,6 +11,43 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install coverage pytest-cov pytest-django
+
+      - name: Run Django migrations
+        env:
+          DJANGO_SETTINGS_MODULE: school_app.settings
+        run: |
+          python manage.py migrate
+
+      - name: Run tests with coverage
+        env:
+          DJANGO_SETTINGS_MODULE: school_app.settings
+        run: |
+          coverage run --source="apps" manage.py test
+
+      - name: Generate coverage reports
+        run: |
+          coverage xml
+          coverage html
+          coverage report
+
+      - name: Upload coverage reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-reports
+          path: |
+            htmlcov/
+            coverage.xml
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -28,4 +65,4 @@ jobs:
           echo "Testing Copilot CLI..."
 
           # User Copilot CLI
-          copilot -p "Porque o ceu é azul?" --allow-all-tools
+          copilot -p "Execute o arquivo prompt testcoveragent.prompt.md" --allow-all-tools
