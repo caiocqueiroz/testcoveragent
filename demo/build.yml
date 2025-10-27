@@ -1,0 +1,31 @@
+name: Build and Test with Copilot CLI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  copilot-cli-build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install GitHub Copilot CLI 
+        run: |
+          npm install -g @github/copilot
+
+      - name: Run Copilot CLI 
+        env:
+          GITHUB_TOKEN: ${{ secrets.COPILOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.COPILOT_TOKEN }}
+        run: |
+          echo "Testing Copilot CLI..."
+
+          # User Copilot CLI
+          copilot -p "Porque o ceu é azul?" --allow-all-tools
