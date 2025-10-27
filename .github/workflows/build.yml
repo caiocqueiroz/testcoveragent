@@ -36,17 +36,23 @@ jobs:
 
       - name: Generate coverage reports
         run: |
-          coverage xml
-          coverage html
-          coverage report
+          mkdir -p coverage-reports
+          coverage xml -o coverage-reports/coverage.xml
+          coverage html -d coverage-reports/htmlcov
+          coverage report > coverage-reports/coverage-report.txt
+          # Copy reports to workspace root for Copilot CLI access
+          cp -r coverage-reports/* .
+          echo "Coverage reports generated and available in workspace"
 
       - name: Upload coverage reports
         uses: actions/upload-artifact@v4
         with:
           name: coverage-reports
           path: |
+            coverage-reports/
             htmlcov/
             coverage.xml
+            coverage-report.txt
 
       - name: Set up Node.js
         uses: actions/setup-node@v4

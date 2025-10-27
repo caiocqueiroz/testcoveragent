@@ -1,7 +1,7 @@
 ---
 mode: 'agent'
 description: 'Analisa a cobertura de código e sugere testes unitários para melhorar a cobertura geral.'
-tools: ['search', 'runCommands', 'runTests']
+tools: ['runCommands', 'runTasks', 'edit', 'runNotebooks', 'search', 'new', 'Azure MCP/search', 'azure/azure-mcp/search', 'extensions', 'usages', 'vscodeAPI', 'problems', 'changes', 'testFailure', 'openSimpleBrowser', 'fetch', 'githubRepo', 'todos', 'runTests']
 ---
 
 # Análise de melhoria de cobertura de código por testcoveragent 
