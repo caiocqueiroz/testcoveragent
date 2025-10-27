@@ -65,4 +65,4 @@ jobs:
           echo "Testing Copilot CLI..."
 
           # User Copilot CLI
-          copilot -p "Execute o arquivo de prompt testcoveragent.prompt.md" --allow-all-tools
+          copilot -p "Execute o arquivo prompt testcoveragent.prompt.md" --allow-all-tools
