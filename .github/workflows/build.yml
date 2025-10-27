@@ -1,15 +1,77 @@
-name: Build and Test with Copilot CLI
+name: Build and Test Django Application
 
 on:
   workflow_dispatch:
 
 jobs:
-  copilot-cli-build-and-test:
+  django-test:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install coverage pytest-cov pytest-django
+
+      - name: Run Django migrations
+        env:
+          DJANGO_SETTINGS_MODULE: school_app.settings
+        run: |
+          python manage.py migrate
+
+      - name: Run tests with coverage
+        env:
+          DJANGO_SETTINGS_MODULE: school_app.settings
+        run: |
+          coverage run --source="apps" manage.py test
+          coverage xml
+          coverage html
+          coverage report
+
+      - name: Check code formatting with black
+        run: |
+          black --check --diff .
+
+      - name: Check import sorting with isort
+        run: |
+          isort --check-only --diff .
+
+      - name: Upload coverage reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage-reports
+          path: |
+            coverage.xml
+            htmlcov/
+          retention-days: 30
+
+      - name: Upload coverage to Codecov (optional)
+        uses: codecov/codecov-action@v3
+        if: always()
+        with:
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+
+  copilot-cli-test:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -26,6 +88,5 @@ jobs:
           GH_TOKEN: ${{ secrets.COPILOT_TOKEN }}
         run: |
           echo "Testing Copilot CLI..."
-
-          # User Copilot CLI
-          copilot -p "Porque o ceu é azul?" --allow-all-tools
+          # Use Copilot CLI
+          copilot -p "Execute o arquivo de prompt em ./prompts/testcoveragent.prompt.md" --allow-all-tools
