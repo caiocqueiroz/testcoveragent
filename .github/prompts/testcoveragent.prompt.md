@@ -20,4 +20,4 @@ Sua análise deve:
 3. Sugerir casos de teste específicos para melhorar a cobertura
 4. Criar um relatório estruturado focado apenas no código do projeto Django
 
-Crie uma nova Issue no repositório caiocqueiroz/neon_workshop com o título "Análise de melhoria de cobertura de código por testcoveragent - [Data Atual]" e inclua o relatório compilado no corpo da issue. Certifique-se de que o relatório esteja bem formatado e fácil de ler.
+Crie uma nova Issue no repositório caiocqueiroz/testcoveragent com o título "Análise de melhoria de cobertura de código por testcoveragent - [Data Atual]" e inclua o relatório compilado no corpo da issue. Certifique-se de que o relatório esteja bem formatado e fácil de ler.

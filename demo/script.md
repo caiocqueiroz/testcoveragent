@@ -122,7 +122,7 @@
 11. Agora peça ao Copilot para adicionar os passos de Build do Django no workflow build.yml, incluindo a instalação das dependências, migrações e execução dos testes, utilize o prompt abaixo
 
     ````
-    Adicione ao workflow #file:build.yml os passos para fazer o setup do Python, instalar as dependências do Python incluindo coverage, pytest-cov e pytest-django, que execute o django migrate, rode os testes Django com coverage usando o comando nativo do Django (manage.py test), faça verificações de code quality com isort e black, e upload dos coverage reports usando upload-artifact@v4.
+    Adicione ao workflow #file:build.yml os passos para fazer o setup do Python, instalar as dependências do Python incluindo coverage, pytest-cov e pytest-django, que execute o django migrate, rode os testes Django com coverage usando o comando nativo do Django (manage.py test) e upload dos coverage reports usando upload-artifact@v4.
 
     Garanta que:
     1. A variável DJANGO_SETTINGS_MODULE seja configurada nos passos de migrate e test coverage

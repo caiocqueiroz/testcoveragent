@@ -28,4 +28,4 @@ jobs:
           echo "Testing Copilot CLI..."
 
           # User Copilot CLI
-          copilot -p "Porque o ceu é azul?" --allow-all-tools
+          copilot -p "Porque o ceu é azul?" --allow-all-toolsgit
